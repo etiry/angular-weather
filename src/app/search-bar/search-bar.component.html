@@ -1,11 +1,11 @@
-<div id="search-bar">
+<form #searchForm="ngForm" id="search-bar" (ngSubmit)="onSubmit(search, searchForm)">
   <label for="search-box">Search for a Location</label>
-  <input #searchBox id="search-box" (input)="searchBox.value" />
-  <button type="submit" (click)="onSubmit(searchBox.value)">Search</button>
+  <input #searchBox id="search-box" name="search" [(ngModel)]="search" />
+  <button>Search</button>
 
   <ul class="search-result">
-    <li *ngFor="let location of searchResults$" >
+    <li *ngFor="let location of searchResults" >
         {{location.name}}, {{location.state}}
     </li>
   </ul>
-</div>
+</form>
