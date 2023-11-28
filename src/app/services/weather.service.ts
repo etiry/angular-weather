@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable, catchError, map, of } from 'rxjs';
-import { Location } from '../location';
+import { Location } from '../models/location';
 
 @Injectable({
   providedIn: 'root'
@@ -20,24 +20,24 @@ export class WeatherService {
   private API_KEY = environment.API_KEY;
   private ROOT_URL = 'https://api.openweathermap.org/';
 
-  // get coordinates from search query
-  // fetchCoordinates(query: string): Observable<Location> {
-  //   return this.http.get<Location>(`${this.ROOT_URL}/geo/1.0/direct?q=${query}&appid=${this.API_KEY}`)
-  //     .pipe(
-  //       catchError(this.handleError<Location>('fetchCoordinates'))
-  //     )
-  // }
-
-  // GET coordinates from search query
+  // GET locations from search query
   searchLocations(query: string): Observable<any> {
-    if (!query.trim()) {
+    if (!query?.trim()) {
       // if no search term, return empty array.
       return of([]);
     }
     return this.http.get<any[]>(`${this.ROOT_URL}/geo/1.0/direct?q=${query}&limit=5&appid=${this.API_KEY}`)
-    //   .pipe(
-    //     catchError(this.handleError<Location[]>('searchLocations', []))
-    // );
+      .pipe(
+        catchError(this.handleError<Location[]>('searchLocations', []))
+    );
+  }
+
+  // GET current weather for selected location
+  getWeather(location: Location): Observable<any> {
+    return this.http.get<any[]>(`${this.ROOT_URL}/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&units=imperial&appid=${this.API_KEY}`)
+      .pipe(
+        catchError(this.handleError<Location[]>('getWeather', []))
+    );
   }
 
   /**

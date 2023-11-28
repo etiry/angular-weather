@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { WeatherService } from '../services/weather.service';
-import { Location } from '../location';
+import { SelectionService } from '../services/selection.service';
+import { Location } from '../models/location';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,8 +13,10 @@ import { Location } from '../location';
   styleUrl: './search-bar.component.css'
 })
 export class SearchBarComponent {
-[x: string]: any;
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    private selectionService: SelectionService
+  ) {}
 
   search = '';
 
@@ -30,6 +33,33 @@ export class SearchBarComponent {
           lon: result.lon
         }))
       });
+  }
+
+  onSelect(option: Location) {
+    return this.weatherService.getWeather(option)
+      .subscribe((results) => {
+        const weather = {
+          location: option,
+          temp: Math.round(results.main.temp),
+          description: results.weather[0].description,
+          icon: results.weather[0].icon
+        };
+        // const forecast = {
+        //   location: option,
+        //   days: results.daily.map((day: any) => (
+        //     {
+        //       temp: {
+        //         min: day.temp.min,
+        //         max: day.temp.max
+        //       },
+        //       description: day.weather.description,
+        //       icon: day.weather.icon
+        //     }
+        //   ))
+        // }
+        this.selectionService.updateWeather(weather);
+        // this.selectionService.updateForecast(forecast)
+      })
   }
 
 }
