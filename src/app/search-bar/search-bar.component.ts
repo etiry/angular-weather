@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { forkJoin } from 'rxjs';
 import { WeatherService } from '../services/weather.service';
 import { SelectionService } from '../services/selection.service';
+import { ModuleUtil } from '../module.util';
 import { Location } from '../models/location';
 
 @Component({
@@ -26,7 +28,7 @@ export class SearchBarComponent {
     form.reset();
     return this.weatherService.searchLocations(term)
       .subscribe((results) => {
-        this.searchResults = results.map((result: Location) => ({
+        this.searchResults = results.map((result: any) => ({
           name: result.name,
           state: result.state,
           lat: result.lat,
@@ -36,29 +38,14 @@ export class SearchBarComponent {
   }
 
   onSelect(option: Location) {
-    return this.weatherService.getWeather(option)
+    const getWeatherResponse = this.weatherService.getWeather(option);
+    const getForecastResponse = this.weatherService.getForecast(option);
+    return forkJoin([getWeatherResponse, getForecastResponse])
       .subscribe((results) => {
-        const weather = {
-          location: option,
-          temp: Math.round(results.main.temp),
-          description: results.weather[0].description,
-          icon: results.weather[0].icon
-        };
-        // const forecast = {
-        //   location: option,
-        //   days: results.daily.map((day: any) => (
-        //     {
-        //       temp: {
-        //         min: day.temp.min,
-        //         max: day.temp.max
-        //       },
-        //       description: day.weather.description,
-        //       icon: day.weather.icon
-        //     }
-        //   ))
-        // }
+        const weather = ModuleUtil.setWeather(option, results[0]);
+        const forecast = ModuleUtil.setForecast(option, results[1]);
         this.selectionService.updateWeather(weather);
-        // this.selectionService.updateForecast(forecast)
+        this.selectionService.updateForecast(forecast)
       })
   }
 

@@ -17,7 +17,6 @@ export class CurrentWeatherComponent implements OnDestroy {
 
   constructor(private selectionService: SelectionService) {
     this.weatherSubscription = this.selectionService.currentWeather.subscribe(data => {
-      console.log(data);
       this.currentWeather = data;
     });
   }

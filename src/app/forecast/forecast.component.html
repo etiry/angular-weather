@@ -1,0 +1,8 @@
+<div *ngIf="currentForecast" class="flex">
+  <div *ngFor="let day of currentForecast.days">
+    <h3>{{day.description | titlecase}}</h3>
+    <img src="https://openweathermap.org/img/wn/{{day.icon}}@2x.png" />
+    <h3>Lo: {{day.temp.min}}&deg;</h3>
+    <h3>Hi: {{day.temp.max}}&deg;</h3>
+  </div>
+</div>

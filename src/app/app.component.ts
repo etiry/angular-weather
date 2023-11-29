@@ -4,11 +4,12 @@ import { RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CurrentWeatherComponent } from './current-weather/current-weather.component';
+import { ForecastComponent } from './forecast/forecast.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HttpClientModule, SearchBarComponent, CurrentWeatherComponent],
+  imports: [CommonModule, RouterOutlet, HttpClientModule, SearchBarComponent, CurrentWeatherComponent, ForecastComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

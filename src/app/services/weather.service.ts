@@ -40,6 +40,14 @@ export class WeatherService {
     );
   }
 
+  // GET current weather for selected location
+  getForecast(location: Location): Observable<any> {
+    return this.http.get<any[]>(`${this.ROOT_URL}/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&units=imperial&appid=${this.API_KEY}`)
+      .pipe(
+        catchError(this.handleError<Location[]>('getForecast', []))
+    );
+  }
+
   /**
   * Handle Http operation that failed.
   * Let the app continue.

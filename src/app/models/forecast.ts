@@ -6,6 +6,7 @@ export interface Forecast {
 }
 
 export interface Day {
+  dayOfWeek: string,
   temp: {
     min: number,
     max: number
