@@ -1,7 +1,9 @@
 <form #searchForm="ngForm" id="search-bar" (ngSubmit)="onSubmit(search, searchForm)">
   <label for="search-box">Search for a Location</label>
-  <input #searchBox id="search-box" name="search" [(ngModel)]="search" />
-  <button>Search</button>
+  <div class="flex">
+    <input #searchBox id="search-box" name="search" [(ngModel)]="search" />
+    <button>Search</button>
+  </div>
 
   <ul class="search-result">
     <li *ngFor="let location of searchResults" >

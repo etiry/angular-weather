@@ -1,5 +1,6 @@
-<div *ngIf="currentForecast" class="flex">
-  <div *ngFor="let day of currentForecast.days">
+<div *ngIf="currentForecast" class="flex center">
+  <div *ngFor="let day of currentForecast.days" class="grid items-center forecast-day">
+    <h2>{{day.dayOfWeek}}</h2>
     <h3>{{day.description | titlecase}}</h3>
     <img src="https://openweathermap.org/img/wn/{{day.icon}}@2x.png" />
     <h3>Lo: {{day.temp.min}}&deg;</h3>

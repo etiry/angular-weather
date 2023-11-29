@@ -40,6 +40,7 @@ export class SearchBarComponent {
   onSelect(option: Location) {
     const getWeatherResponse = this.weatherService.getWeather(option);
     const getForecastResponse = this.weatherService.getForecast(option);
+    
     return forkJoin([getWeatherResponse, getForecastResponse])
       .subscribe((results) => {
         const weather = ModuleUtil.setWeather(option, results[0]);

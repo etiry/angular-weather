@@ -1,5 +1,5 @@
-<div *ngIf="currentWeather">
-  <h2>{{currentWeather.location.name}}</h2>
+<div *ngIf="currentWeather" class="grid items-center">
+  <h2>{{currentWeather.location.name}}, {{currentWeather.location.state}}</h2>
   <img src="https://openweathermap.org/img/wn/{{currentWeather.icon}}@2x.png" />
   <h3>{{currentWeather.description | titlecase}}</h3>
   <h3>{{currentWeather.temp}}&deg;</h3>
