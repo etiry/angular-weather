@@ -1,4 +1,4 @@
-<div *ngIf="currentWeather" class="grid items-center">
+<div *ngIf="isEmptyObject(currentWeather) === false" class="grid items-center pt-2">
   <h2>{{currentWeather.location.name}}, {{currentWeather.location.state}}</h2>
   <img src="https://openweathermap.org/img/wn/{{currentWeather.icon}}@2x.png" />
   <h3>{{currentWeather.description | titlecase}}</h3>

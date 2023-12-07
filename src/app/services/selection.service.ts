@@ -8,12 +8,18 @@ import { Forecast } from '../models/forecast';
   providedIn: 'root'
 })
 export class SelectionService {
+  private location = new BehaviorSubject<any>(null);
   private weather = new BehaviorSubject<any>(null);
   private forecast = new BehaviorSubject<any>(null);
+  currentLocation = this.location.asObservable();
   currentWeather = this.weather.asObservable();
   currentForecast = this.forecast.asObservable();
 
   constructor() { }
+
+  updateLocation(location: Location) {
+    this.location.next(location);
+  }
 
   updateWeather(weather: Weather) {
     this.weather.next(weather);

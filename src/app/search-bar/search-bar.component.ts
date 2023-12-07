@@ -24,8 +24,7 @@ export class SearchBarComponent {
 
   searchResults!: Location[];
 
-  onSubmit(term: string, form: NgForm) {
-    form.reset();
+  onSubmit(term: string) {
     return this.weatherService.searchLocations(term)
       .subscribe((results) => {
         this.searchResults = results.map((result: any) => ({
@@ -37,7 +36,12 @@ export class SearchBarComponent {
       });
   }
 
-  onSelect(option: Location) {
+  onSelect(option: Location, form: NgForm) {
+    form.reset();
+
+    this.searchResults = [];
+    this.selectionService.updateLocation(option);
+    
     const getWeatherResponse = this.weatherService.getWeather(option);
     const getForecastResponse = this.weatherService.getForecast(option);
     

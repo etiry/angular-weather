@@ -1,4 +1,4 @@
-<form #searchForm="ngForm" id="search-bar" (ngSubmit)="onSubmit(search, searchForm)">
+<form #searchForm="ngForm" id="search-bar" (ngSubmit)="onSubmit(search)" class="w-100">
   <label for="search-box">Search for a Location</label>
   <div class="flex">
     <input #searchBox id="search-box" name="search" [(ngModel)]="search" />
@@ -7,7 +7,7 @@
 
   <ul class="search-result">
     <li *ngFor="let location of searchResults" >
-        <a (click)="onSelect(location)">{{location.name}}, {{location.state}}</a>
+        <a (click)="onSelect(location, searchForm)">{{location.name}}, {{location.state}}</a>
     </li>
   </ul>
 </form>
