@@ -1,9 +1,11 @@
-<div *ngIf="currentForecast" class="flex center">
+<div *ngIf="currentForecast" class="flex center pt-2">
   <div *ngFor="let day of currentForecast.days" class="grid items-center forecast-day">
     <h2>{{day.dayOfWeek}}</h2>
     <h3>{{day.description | titlecase}}</h3>
     <img src="https://openweathermap.org/img/wn/{{day.icon}}@2x.png" />
-    <h3>Lo: {{day.temp.min}}&deg;</h3>
-    <h3>Hi: {{day.temp.max}}&deg;</h3>
+    <div class="flex justify-between">
+      <h3 class="p-1">Lo: {{day.temp.min}}&deg;</h3>
+      <h3 class="p-1">Hi: {{day.temp.max}}&deg;</h3>
+    </div>
   </div>
 </div>

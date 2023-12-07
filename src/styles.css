@@ -1,11 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 * {
   font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
 }
 
 body {
   display: flex;
   place-content: center;
+  height: 100vh;
 }
 
 .flex {
@@ -29,6 +32,38 @@ body {
   justify-items: center;
 }
 
+.align-items-center {
+  align-content: center;
+}
+
 .w-50 {
-  min-width: 700px;
+  min-width: 900px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.pt-2 {
+  padding-top: 2em;
+}
+
+.justify-between {
+  justify-items: space-between;
+}
+
+.p-1 {
+  padding: 1em;
+}
+
+button {
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 0.5em;
+  font-size: medium;
+  cursor: pointer;
+}
+
+input {
+  border-radius: 0.5em;
 }
